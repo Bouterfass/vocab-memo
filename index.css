@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Reset de base sans casser le layout */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #e0e5ec;
+    /* neu-base */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #4a5568;
+    /* text-neu-text */
+    overflow-x: hidden;
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #e0e5ec;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a3b1c6;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #889bb6;
+}
+
+/* Animation utilisée dans InfoScreen */
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+/* Conteneur principal pour L'EXTENSION */
+.popup-root {
+    width: 350px;
+    min-height: 500px;
+    padding: 0;
+}

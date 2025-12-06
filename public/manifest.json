@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "VocabMemo",
+  "version": "1.0",
+  "description": "Mémorisez votre vocabulaire anglais simplement.",
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Ouvrir VocabMemo"
+  },
+  "permissions": [
+    "storage",
+    "contextMenus",
+    "activeTab"
+  ],
+  "host_permissions": [
+     "https://translate.googleapis.com/*",
+    "https://api.dictionaryapi.dev/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}
