@@ -88,7 +88,7 @@ export const TestScreen: React.FC<TestScreenProps> = ({ onBack }) => {
   // Setup View
   if (testState === 'SETUP') {
     return (
-      <div className="p-6 pt-16 flex flex-col min-h-[500px]">
+      <div className="p-6 pt-8 flex flex-col min-h-[500px]">
         <button onClick={onBack} className="self-start mb-8 text-neu-text opacity-70 hover:opacity-100 flex items-center transition-opacity">
           <span className="mr-1">←</span> Retour
         </button>

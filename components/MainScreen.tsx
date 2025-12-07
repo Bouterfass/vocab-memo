@@ -177,18 +177,18 @@ export const MainScreen: React.FC<MainScreenProps> = ({ onNavigateTest, onReset 
     <div className="p-6 h-full min-h-[500px] flex flex-col relative box-border">
 
       {/* Header Row */}
-      <div className="relative flex justify-center items-center pt-2 mb-4 shrink-0">
+      <div className="relative flex justify-center items-center pt-1 mb-4 shrink-0">
         {/* Title Centered */}
-        <h1 className="text-3xl font-bold text-neu-text tracking-wide mt-1">VocabMemo</h1>
+        <h1 className="text-2xl font-bold text-neu-text tracking-wide">VocabMemo</h1>
 
         {/* Test Button - Absolute Positioned to match App.tsx Helper Button (top-6 right-6) */}
         <button
           onClick={onNavigateTest}
-          className="absolute top-0 right-0 w-8 h-8 rounded-full bg-neu-base shadow-neu-out active:shadow-neu-in flex items-center justify-center text-neu-accent transition-all hover:scale-105 hover:text-neu-accent/80"
+          className="absolute top-1 left-1 w-8 h-8 rounded-full bg-neu-base shadow-neu-out active:shadow-neu-in flex items-center justify-center text-neu-accent transition-all hover:scale-105 hover:text-neu-accent/80"
           title="Mode Test"
           style={{ marginTop: '0px' }} // Adjusted by parent padding/layout, actually let's use fixed absolute relative to container
         >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 ml-0.5">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 m-0.5">
             <path fillRule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clipRule="evenodd" />
           </svg>
         </button>
@@ -198,9 +198,6 @@ export const MainScreen: React.FC<MainScreenProps> = ({ onNavigateTest, onReset 
       <div className="flex-1 flex flex-col justify-center py-2">
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-neu-text opacity-80">
-              Anglais
-            </span>
           </div>
           <NeuInput
             label="Anglais"
