@@ -133,7 +133,6 @@ export const TestScreen: React.FC<TestScreenProps> = ({ onBack }) => {
         else if (len <= 11) maxAllowed = 3;
         else maxAllowed = 4;
 
-
         return dist <= maxAllowed;
       });
 
