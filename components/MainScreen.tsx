@@ -5,6 +5,8 @@ import { Word } from '../types';
 import { addWordToStorage, getStoredWords } from '../services/storageService';
 import { exportToCSV } from '../services/csvService';
 
+const MAX_ENGLISH_LENGTH = 15;
+
 interface MainScreenProps {
   onNavigateTest: () => void;
   onReset: () => void;
@@ -20,6 +22,8 @@ export const MainScreen: React.FC<MainScreenProps> = ({ onNavigateTest, onReset 
   const [suggestedExamples, setSuggestedExamples] = useState<string[]>([]);
   const [currentExampleIndex, setCurrentExampleIndex] = useState(0);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const englishLength = english.length;
+  const isEnglishTooLong = englishLength > MAX_ENGLISH_LENGTH;
 
   // Récupère prononciation + exemple depuis DictionaryAPI
   const fetchDictionaryData = async (word: string) => {
@@ -132,6 +136,11 @@ export const MainScreen: React.FC<MainScreenProps> = ({ onNavigateTest, onReset 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
+    if (isEnglishTooLong) {
+      setMessage({ type: 'error', text: `Le champ anglais est limité à ${MAX_ENGLISH_LENGTH} caractères.` });
+      return;
+    }
+
     if (!english.trim() || !french.trim()) {
       setMessage({ type: 'error', text: 'Champs obligatoires manquants.' });
       return;
@@ -201,25 +210,33 @@ export const MainScreen: React.FC<MainScreenProps> = ({ onNavigateTest, onReset 
           </div>
           <NeuInput
             label="Anglais"
-            labelRightContent={audioUrl && (
-              <button
-                type="button"
-                className="text-xs px-2 py-1 rounded-full bg-neu-base shadow-neu-out active:shadow-neu-in text-neu-accent hover:scale-105 transition-all"
-                onClick={() => new Audio(audioUrl).play()}
-              >
-                <svg xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  className="w-4 h-4 text-neu-accent">
-                  <path d="M11 5L6 9H3v6h3l5 4V5zm5.54.46a1 1 0 10-1.41 1.41A5 5 0 0117 12a5 5 0 01-1.87 3.87 1 1 0 001.41 1.41A7 7 0 0019 12a7 7 0 00-2.46-5.54z" />
-                  <path d="M15.12 7.88a1 1 0 00-1.41 1.41A3 3 0 0114 12a3 3 0 01-.29 1.29 1 1 0 101.83.83A5 5 0 0016 12a5 5 0 00-.88-2.88z" />
-                </svg>
-              </button>
+            labelRightContent={(
+              <div className="flex items-center gap-2">
+                <span className="text-[11px] text-neu-text/60">
+                  {englishLength}/{MAX_ENGLISH_LENGTH}
+                </span>
+                {audioUrl && (
+                  <button
+                    type="button"
+                    className="text-xs px-2 py-1 rounded-full bg-neu-base shadow-neu-out active:shadow-neu-in text-neu-accent hover:scale-105 transition-all"
+                    onClick={() => new Audio(audioUrl).play()}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      className="w-4 h-4 text-neu-accent">
+                      <path d="M11 5L6 9H3v6h3l5 4V5zm5.54.46a1 1 0 10-1.41 1.41A5 5 0 0117 12a5 5 0 01-1.87 3.87 1 1 0 001.41 1.41A7 7 0 0019 12a7 7 0 00-2.46-5.54z" />
+                      <path d="M15.12 7.88a1 1 0 00-1.41 1.41A3 3 0 0114 12a3 3 0 01-.29 1.29 1 1 0 101.83.83A5 5 0 0016 12a5 5 0 00-.88-2.88z" />
+                    </svg>
+                  </button>
+                )}
+              </div>
             )}
             placeholder="ex: Ruthless"
             value={english}
             onChange={(e) => setEnglish(e.target.value)}
             autoFocus
+            error={isEnglishTooLong ? `Maximum ${MAX_ENGLISH_LENGTH} caractères.` : undefined}
           />
 
           <NeuInput
@@ -258,7 +275,7 @@ export const MainScreen: React.FC<MainScreenProps> = ({ onNavigateTest, onReset 
           )}
 
           <div className="pt-4">
-            <NeuButton type="submit" fullWidth>
+            <NeuButton type="submit" fullWidth disabled={isEnglishTooLong}>
               ajouter
             </NeuButton>
           </div>
